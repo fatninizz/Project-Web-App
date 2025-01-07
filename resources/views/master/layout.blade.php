@@ -55,9 +55,20 @@
                             <div class="main-menu f-right d-none d-lg-block">
                                 <nav>
                                     <ul id="navigation">
-                                        <li><a href="index.html">Home</a></li>
-                                        <li><a href="about.html">About</a></li>
-                                        <li><a href="doctor.html">Doctors</a></li>
+                                        {{-- <li><a href="index.html">Home</a></li> --}}
+                                        <li><a href="/" class="active">Home<br></a></li>
+                                        <li><a href="about.html">Patient</a></li>
+                                        {{-- <li><a href="{{ route('create-invoice') }}">Billing</a></li> --}}
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Billing
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <li><a class="dropdown-item" href="{{ route('billing-list') }}">Billing List</a></li>
+                                                <li><a class="dropdown-item" href="{{ route('create-invoice') }}">New Invoice</a></li>
+                                            </ul>
+                                        </li>
+
                                         <li><a href="department.html">Department</a></li>
                                         <li><a href="blog.html">Blog</a>
                                             <ul class="submenu">
@@ -71,7 +82,7 @@
                                 </nav>
                             </div>
                             <div class="header-right-btn f-right d-none d-lg-block ml-30">
-                                <a href="#" class="btn header-btn">01654.066.456</a>
+                                <a href="#" class="btn header-btn">Log Out</a>
                             </div>
                         </div>
                     </div>
@@ -208,6 +219,12 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <!-- Jquery Plugins, main Jquery -->
 <script src="./assets/js/plugins.js"></script>
 <script src="./assets/js/main.js"></script>
+
+<!-- Include Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+
+<!-- Include Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
