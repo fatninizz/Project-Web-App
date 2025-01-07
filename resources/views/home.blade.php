@@ -77,10 +77,10 @@
                     <!-- about-img -->
                     <div class="about-img ">
                         <div class="about-font-img d-none d-lg-block">
-                            <img src="assets/img/gallery/about2.png" alt="">
+                            <img src="{{ asset('assets/img/about2.png') }}" alt="About2 Image">
                         </div>
                         <div class="about-back-img ">
-                            <img src="assets/img/gallery/about1.png" alt="">
+                            <img src="{{ asset('assets/img/about1.png') }}" alt="About1 Image">
                         </div>
                     </div>
                 </div>
