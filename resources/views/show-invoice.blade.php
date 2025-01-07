@@ -68,4 +68,6 @@
     <a href="{{ route('billing-list') }}" class="btn btn-secondary">Back to Billing List</a>
 </div>
 
+{{-- test --}}
+
 @endsection

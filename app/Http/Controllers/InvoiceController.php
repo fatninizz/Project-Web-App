@@ -60,5 +60,4 @@ public function show($id)
     return view('show-invoice', compact('invoice')); // Use 'invoice' as the variable name
 }
 
-
 }
