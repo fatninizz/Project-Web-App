@@ -54,10 +54,14 @@ public function store(Request $request)
     }
 }
 
-public function show($id)
-{
-    $invoice = Invoice::findOrFail($id); // Fetch billing data by ID
-    return view('show-invoice', compact('invoice')); // Use 'invoice' as the variable name
+// public function show($id)
+// {
+//     $invoice = Invoice::findOrFail($id); // Fetch billing data by ID
+//     return view('show-invoice', compact('invoice')); // Use 'invoice' as the variable name
+// }
+public function show($id) {
+    $invoice = Invoice::find($id);
+    return view('show-invoice', compact('invoice'));
 }
 
 }

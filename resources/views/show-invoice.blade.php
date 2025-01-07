@@ -1,10 +1,10 @@
 @extends('master.layout')
+@section('title', 'Show Invoice')
 @section('content')
 
-<!DOCTYPE html>
+
 <div class="container">
     <h1>Invoice Details</h1>
-
     @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -67,6 +67,6 @@
 
     <a href="{{ route('billing-list') }}" class="btn btn-secondary">Back to Billing List</a>
 </div>
-</html>
+
 
 @endsection
