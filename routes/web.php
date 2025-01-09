@@ -14,4 +14,7 @@ Route::post('/invoices', [InvoiceController::class, 'store'])->name('invoices.st
 Route::get('/invoice/{id}', [InvoiceController::class, 'show'])->name('invoice.show');
 
 Route::get('/doctorpage', [DoctorController::class, 'index'])->name('doctorpage');
-
+Route::resource('adddoctor', DoctorController::class);
+Route::get('/add-doctor', function () {
+    return view('add-doctor');
+});

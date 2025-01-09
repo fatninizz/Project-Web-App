@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Doctor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DoctorController extends Controller
 {
@@ -11,7 +13,11 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        return view('doctorpage');
+        $doctors = DB::table('doctors')
+        ->orderBy('updated_at', 'asc')
+        ->get();
+
+        return view('doctorpage', ['doctors'=>$doctors]);
     }
 
     /**
@@ -27,7 +33,17 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $doctor= new Doctor();
+        $doctor->doctor_id=$request->doctor_id;
+        $doctor->doctor_name=$request->doctor_name;
+        $doctor->department=$request->department;
+        $doctor->email_address=$request->email;
+        $doctor->schedule=$request->schedule;
+        $doctor->contact_no=$request->contact_no;
+        $doctor->created_at=today();
+        $doctor->updated_at=today();
+        $doctor->save();
+        return redirect('doctorpage');
     }
 
     /**
