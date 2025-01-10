@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -23,6 +22,10 @@ return new class extends Migration
             $table->json('price')->nullable();
             $table->json('vat')->nullable();
             $table->json('final_amount')->nullable();
+            $table->decimal('subtotal', 10, 2)->default(0);
+            $table->decimal('vat_total', 10, 2)->default(0);
+            $table->decimal('total_amount', 10, 2)->default(0); // Add total_amount column
+            $table->enum('payment_status', ['PAID', 'UNPAID'])->default('UNPAID');
             $table->timestamps();
         });
     }

@@ -1,8 +1,6 @@
 @extends('master.layout')
-@section('title', 'Show Invoice')
 @section('content')
-
-
+<!DOCTYPE html>
 <div class="container">
     <h1>Invoice Details</h1>
     @if(session('success'))
@@ -10,20 +8,17 @@
             {{ session('success') }}
         </div>
     @endif
-
     <div class="invoice-details">
         <h2>Invoice ID: {{ $invoice->invoice_id }}</h2>
         <p><strong>Bill Date:</strong> {{ $invoice->bill_date }}</p>
         <p><strong>Delivery Date:</strong> {{ $invoice->delivery_date }}</p>
         <p><strong>Payment Deadline:</strong> {{ $invoice->payment_deadline }}</p>
         <p><strong>Terms of Payment:</strong> Within 15 Days</p>
-
         <h3>Patient Details</h3>
         <p><strong>Patient Name:</strong> {{ $invoice->patient_name }}</p>
         <p><strong>Billing Address:</strong> {{ $invoice->billing_address }}</p>
         <p><strong>Contact Info:</strong> {{ $invoice->contact_info }}</p>
         <p><strong>Email:</strong> {{ $invoice->email }}</p>
-
         <h3>Invoice Items</h3>
         <table class="table">
             <thead>
@@ -53,7 +48,6 @@
                 @endif
             </tbody>
         </table>
-
         <h3>Summary</h3>
         <p><strong>Subtotal:</strong> MYR {{ number_format($invoice->subtotal, 2) }}</p>
         <p><strong>VAT Total:</strong> MYR {{ number_format($invoice->vat_total, 2) }}</p>
@@ -64,9 +58,6 @@
             </span>
         </p>
     </div>
-
     <a href="{{ route('billing-list') }}" class="btn btn-secondary">Back to Billing List</a>
 </div>
-
-
 @endsection

@@ -1,10 +1,15 @@
 <?php
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Invoice extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
+        'invoice_id',
         'bill_date',
         'delivery_date',
         'payment_deadline',
@@ -12,17 +17,15 @@ class Invoice extends Model
         'billing_address',
         'contact_info',
         'email',
-        'invoice_id',
-        'description',
-        'quantity',
-        'price',
-        'vat',
-        'final_amount'
+        'subtotal',
+        'vat_total',
+        'total_amount',
+        'payment_status'
     ];
 
-    protected $dates = [
-        'bill_date',
-        'delivery_date',
-        'payment_deadline'
-    ];
+    public function items()
+    {
+        return $this->hasMany(InvoiceItem::class);
+    }
+
 }

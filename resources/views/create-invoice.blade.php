@@ -1,7 +1,6 @@
 @extends('master.layout')
 @section('title', 'New Invoice')
 @section('content')
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -100,7 +99,6 @@
             <p><strong>MYR</strong></p>
         </div>
     </div>
-
     <div class="container">
         <form id="invoice-form" action="{{ route('invoices.store') }}" method="POST">
             @csrf
@@ -144,7 +142,6 @@
         <input type="text" id="invoice_id" name="invoice_id" required>
     </div>
 </div>
-
 <table>
     <thead>
         <tr>
@@ -168,116 +165,111 @@
     </tbody>
 </table>
 <button type="button" class="btn" onclick="addRow()">Add Row</button>
-
 <div class="summary-section">
     <p>Subtotal: <input type="number" step="0.01" id="subtotal" name="subtotal" readonly></p>
-    <p>VAT Total: <input type="number" step="0.01" id="vat-total" name="vat-total" readonly></p>
-    <p>Total Amount: <input type="number" step="0.01" id="total-amount" name="total-amount" readonly></p>
-
+    <p>VAT Total: <input type="number" step="0.01" id="vat-total" name="vat_total" readonly></p>
+    <p>Total Amount: <input type="number" step="0.01" id="total-amount" name="total_amount" readonly></p>
     <label for="payment_status">Payment Status:</label>
     <select name="payment_status" id="payment_status" required>
         <option value="PAID">PAID</option>
         <option value="UNPAID">UNPAID</option>
     </select>
 </div>
-
 {{-- <a href="{{ route('billing-list') }}" class="btn btn-primary">Save</a> --}}
 {{-- <button type="submit" class="btn btn-primary">Save</button> --}}
+<!-- Replace your existing Save link with this button -->
 <!-- Replace your existing Save link with this button -->
 <button type="submit" class="btn btn-primary">Save</button>
 <button type="button" class="btn btn-cancel" onclick="window.location.href='{{ route('billing-list') }}'">Cancel</button>
 {{-- <button type="button" class="btn btn-cancel">Cancel</button> --}}
         </form>
 
-
-<script>
-
-document.getElementById('invoice-form').addEventListener('submit', function(e) {
-    e.preventDefault(); // Prevent default form submission
-
-    // Collect items data
-    const items = [];
-    document.querySelectorAll('#invoice-items tr').forEach(row => {
-        items.push({
-            description: row.querySelector('input[name="description[]"]').value,
-            quantity: row.querySelector('input[name="quantity[]"]').value,
-            price: row.querySelector('input[name="price[]"]').value,
-            vat: row.querySelector('input[name="vat[]"]').value,
-            final_amount: row.querySelector('input[name="final_amount[]"]').value
-        });
-    });
-
-    // Add hidden input for items
-    const itemsInput = document.createElement('input');
-    itemsInput.type = 'hidden';
-    itemsInput.name = 'items';
-    itemsInput.value = JSON.stringify(items);
-    this.appendChild(itemsInput);
-
-    // Submit the form
-    this.submit();
-});
-
-    function calculateFinalAmount(element) {
-        const row = element.closest('tr');
-        const quantity = parseFloat(row.querySelector('input[name="quantity[]"]').value) || 0;
-        const price = parseFloat(row.querySelector('input[name="price[]"]').value) || 0;
-        const vat = parseFloat(row.querySelector('input[name="vat[]"]').value) || 0;
-
-        const finalAmount = quantity * price;
-        const vatTotal = finalAmount * (vat / 100);
-        const totalAmount = finalAmount + vatTotal;
-
-        row.querySelector('input[name="final_amount[]"]').value = finalAmount.toFixed(2);
-
-        updateSummary();
-    }
-
-    function updateSummary() {
-        const rows = document.querySelectorAll('#invoice-items tr');
-        let subtotal = 0;
-        let vatTotal = 0;
-        let totalAmount = 0;
-
-        rows.forEach(row => {
-            const finalAmount = parseFloat(row.querySelector('input[name="final_amount[]"]').value) || 0;
-            const vat = parseFloat(row.querySelector('input[name="vat[]"]').value) || 0;
-
-            subtotal += finalAmount;
-            vatTotal += finalAmount * (vat / 100);
-        });
-
-        totalAmount = subtotal + vatTotal;
-
-        document.getElementById('subtotal').value = subtotal.toFixed(2);
-        document.getElementById('vat-total').value = vatTotal.toFixed(2);
-        document.getElementById('total-amount').value = totalAmount.toFixed(2);
-    }
-
-    function addRow() {
-        const table = document.getElementById('invoice-items');
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td><input type="text" name="description[]" placeholder="Enter treatment/service received" required></td>
-            <td><input type="number" name="quantity[]" value="0" required oninput="calculateFinalAmount(this)"></td>
-            <td><input type="number" step="0.01" name="price[]" value="0.00" required oninput="calculateFinalAmount(this)"></td>
-            <td><input type="number" step="0.01" name="vat[]" value="0.00" oninput="calculateFinalAmount(this)"></td>
-            <td><input type="number" step="0.01" name="final_amount[]" value="0.00" readonly></td>
-            <td><button type="button" onclick="removeRow(this)">Remove</button></td>
-        `;
-        table.appendChild(row);
-    }
-
-    function removeRow(button) {
-        const row = button.closest('tr');
-        row.remove();
-        updateSummary();
-    }
-    </script>
-
+        <script>
+            // First, add the form submission handler
+            document.getElementById('invoice-form').addEventListener('submit', function(e) {
+                e.preventDefault(); // Prevent default form submission
+                
+                // Collect items data
+                const items = [];
+                document.querySelectorAll('#invoice-items tr').forEach(row => {
+                    items.push({
+                        description: row.querySelector('input[name="description[]"]').value,
+                        quantity: row.querySelector('input[name="quantity[]"]').value,
+                        price: row.querySelector('input[name="price[]"]').value,
+                        vat: row.querySelector('input[name="vat[]"]').value,
+                        final_amount: row.querySelector('input[name="final_amount[]"]').value
+                    });
+                });
+            
+                // Add hidden input for items
+                const itemsInput = document.createElement('input');
+                itemsInput.type = 'hidden';
+                itemsInput.name = 'items';
+                itemsInput.value = JSON.stringify(items);
+                this.appendChild(itemsInput);
+            
+                // Submit the form
+                this.submit();
+            });
+            
+            // Your existing JavaScript functions
+            function calculateFinalAmount(element) {
+                const row = element.closest('tr');
+                const quantity = parseFloat(row.querySelector('input[name="quantity[]"]').value) || 0;
+                const price = parseFloat(row.querySelector('input[name="price[]"]').value) || 0;
+                const vat = parseFloat(row.querySelector('input[name="vat[]"]').value) || 0;
+            
+                const finalAmount = quantity * price;
+                const vatTotal = finalAmount * (vat / 100);
+                const totalAmount = finalAmount + vatTotal;
+            
+                row.querySelector('input[name="final_amount[]"]').value = finalAmount.toFixed(2);
+            
+                updateSummary();
+            }
+            
+            function updateSummary() {
+                const rows = document.querySelectorAll('#invoice-items tr');
+                let subtotal = 0;
+                let vatTotal = 0;
+                let totalAmount = 0;
+            
+                rows.forEach(row => {
+                    const finalAmount = parseFloat(row.querySelector('input[name="final_amount[]"]').value) || 0;
+                    const vat = parseFloat(row.querySelector('input[name="vat[]"]').value) || 0;
+            
+                    subtotal += finalAmount;
+                    vatTotal += finalAmount * (vat / 100);
+                });
+            
+                totalAmount = subtotal + vatTotal;
+            
+                document.getElementById('subtotal').value = subtotal.toFixed(2);
+                document.getElementById('vat-total').value = vatTotal.toFixed(2);
+                document.getElementById('total-amount').value = totalAmount.toFixed(2);
+            }
+            
+            function addRow() {
+                const table = document.getElementById('invoice-items');
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><input type="text" name="description[]" placeholder="Enter treatment/service received" required></td>
+                    <td><input type="number" name="quantity[]" value="0" required oninput="calculateFinalAmount(this)"></td>
+                    <td><input type="number" step="0.01" name="price[]" value="0.00" required oninput="calculateFinalAmount(this)"></td>
+                    <td><input type="number" step="0.01" name="vat[]" value="0.00" oninput="calculateFinalAmount(this)"></td>
+                    <td><input type="number" step="0.01" name="final_amount[]" value="0.00" readonly></td>
+                    <td><button type="button" onclick="removeRow(this)">Remove</button></td>
+                `;
+                table.appendChild(row);
+            }
+            
+            function removeRow(button) {
+                const row = button.closest('tr');
+                row.remove();
+                updateSummary();
+            }
+            </script>
+            
 </body>
 </html>
-
 @endsection
-
-
