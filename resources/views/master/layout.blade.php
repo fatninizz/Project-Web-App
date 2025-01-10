@@ -73,7 +73,7 @@
                                         </li>
 
                                         <li><a href="department.html">Department</a></li>
-                                        <li><a href="/doctorpage">Doctor</a></li>
+                                        <li><a href="/doctor">Doctor</a></li>
                                         <li><a href="contact.html">Contact</a></li>
                                     </ul>
                                 </nav>

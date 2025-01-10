@@ -17,7 +17,7 @@ class DoctorController extends Controller
         ->orderBy('updated_at', 'asc')
         ->get();
 
-        return view('doctorpage', ['doctors'=>$doctors]);
+        return view('doctor', ['doctors'=>$doctors]);
     }
 
     /**
@@ -25,7 +25,7 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        //
+        return view('add-doctor');
     }
 
     /**
@@ -33,17 +33,18 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
-        $doctor= new Doctor();
-        $doctor->doctor_id=$request->doctor_id;
-        $doctor->doctor_name=$request->doctor_name;
-        $doctor->department=$request->department;
-        $doctor->email_address=$request->email;
-        $doctor->schedule=$request->schedule;
-        $doctor->contact_no=$request->contact_no;
-        $doctor->created_at=today();
-        $doctor->updated_at=today();
-        $doctor->save();
-        return redirect('doctorpage');
+        $request->validate([
+            'doctor_id' => 'required',
+            'doctor_name' => 'required',
+            'department' => 'required',
+            'email_address' => 'required|email',
+            'schedule' => 'required',
+            'contact_no' => 'required',
+        ]);
+
+        Doctor::create($request->all());
+
+        return redirect()->route('doctor.index')->with('success', 'Doctor created successfully.');
     }
 
     /**
@@ -59,15 +60,27 @@ class DoctorController extends Controller
      */
     public function edit(string $id)
     {
-        //
-    }
+        $doctor = Doctor::find($id);
+        return view('edit-doctor', compact('doctor'));    }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'doctor_id' => 'required',
+            'doctor_name' => 'required',
+            'department' => 'required',
+            'email_address' => 'required|email',
+            'schedule' => 'required',
+            'contact_no' => 'required',
+        ]);
+
+        $doctor = Doctor::findOrFail($id);
+        $doctor->update($request->all());
+
+        return redirect()->route('doctor.index')->with('success', 'Doctor updated successfully');
     }
 
     /**
@@ -75,6 +88,9 @@ class DoctorController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $doctor = Doctor::findOrFail($id);
+        $doctor->delete();
+
+        return redirect()->route('doctor.index')->with('success', 'Doctor deleted successfully');
     }
 }

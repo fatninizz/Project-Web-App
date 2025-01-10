@@ -30,40 +30,42 @@
                 </div>
             </div>
             <div>
-                <h2>Fill in doctor details</h2>
+                <h2>Edit doctor details</h2>
             </div>
             <div class="container" style="background-color: #f8f9fa; padding: 20px; border-radius: 8px;">
-                <form action="{{ route('doctor.store') }}" method="post" role="form" enctype="multipart/form-data">
+                <form action="{{ route('doctor.update',$doctor->id) }}" method="post" role="form" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
+
                     <div class="row">
                         <div class="col-md-12 mb-3">
                             <div class="form-group">
-                              <input type="text" name="doctor_id" class="form-control" id="doctor_id" placeholder="Doctor ID" required>
+                              <input type="text" name="doctor_id" class="form-control" id="doctor_id" value="{{ $doctor->doctor_id }}" required>
                             </div>
                           </div>
                       <div class="col-md-12 mb-3">
                         <div class="form-group">
-                          <input type="text" name="doctor_name" class="form-control" id="doctor_name" placeholder="Doctor Name" required>
+                          <input type="text" name="doctor_name" class="form-control" id="doctor_name" value="{{ $doctor->doctor_name }}" required>
                         </div>
                       </div>
                       <div class="col-md-12 mb-3">
                         <div class="form-group">
-                          <input type="text" name="department" class="form-control" id="department" placeholder="Department" required>
+                          <input type="text" name="department" class="form-control" id="department" value="{{ $doctor->department }}" required>
                         </div>
                       </div>
                       <div class="col-md-12 mb-3">
                         <div class="form-group">
-                          <input type="email" name="email_address" class="form-control" id="email_address" placeholder="Email Address" required>
+                          <input type="email" name="email_address" class="form-control" id="email_address" value="{{ $doctor->email_address }}" required>
                         </div>
                       </div>
                       <div class="col-md-12 mb-3">
                         <div class="form-group">
-                          <input type="text" name="schedule" class="form-control" id="schedule" placeholder="Schedule" required>
+                          <input type="text" name="schedule" class="form-control" id="schedule" value="{{ $doctor->schedule }}" required>
                         </div>
                       </div>
                       <div class="col-md-12 mb-3">
                         <div class="form-group">
-                          <input type="text" name="contact_no" class="form-control" id="contact_no" placeholder="Contact No" required>
+                          <input type="text" name="contact_no" class="form-control" id="contact_no" value="{{ $doctor->contact_no }}" required>
                         </div>
                       </div>
                       <div class="col-md-12 text-center">
