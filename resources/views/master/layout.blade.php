@@ -75,7 +75,7 @@
                                         <li><a href="">Department</a></li>
                                         <li><a href="/doctor">Doctor</a></li>
                                         <li><a href="">Contact</a></li>
-                                        <li><a href="{{ route('pharmacy.index') }}">Pharmacy</a></li>
+                                        <li><a href="{{ route('pharmacy') }}">Pharmacy</a></li>
 
                                     </ul>
                                 </nav>
