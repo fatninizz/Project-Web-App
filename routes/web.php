@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\DrugController;
 
 Route::get('/', function () {
     return view('home');
@@ -28,3 +29,7 @@ Route::delete('/doctor/{id}', [DoctorController::class, 'destroy'])->name('docto
 // Route::get('/add-doctor', function () {
 //     return view('add-doctor');
 // });
+Route::get('/pharmacy', [DrugController::class, 'index'])->name('pharmacy.index');
+Route::post('/drugs', [DrugController::class, 'store'])->name('drugs.store');
+Route::put('/drugs/{id}', [DrugController::class, 'update'])->name('drugs.update');
+Route::delete('/drugs/{id}', [DrugController::class, 'destroy'])->name('drugs.destroy');
