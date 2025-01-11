@@ -8,12 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Appointment extends Model
 {
-    //use HasFactory;
 
-    use HasFactory;
-
-    class Appointment extends Model
-    {
         use HasFactory;
 
         protected $fillable = [
@@ -24,7 +19,7 @@ class Appointment extends Model
             'appointment_time',
         ];
     }
-}
+
 
 
 
