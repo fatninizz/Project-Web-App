@@ -29,7 +29,9 @@ Route::delete('/doctor/{id}', [DoctorController::class, 'destroy'])->name('docto
 // Route::get('/add-doctor', function () {
 //     return view('add-doctor');
 // });
-Route::get('/pharmacy', [DrugController::class, 'index'])->name('pharmacy.index');
-Route::post('/drugs', [DrugController::class, 'store'])->name('drugs.store');
-Route::put('/drugs/{id}', [DrugController::class, 'update'])->name('drugs.update');
-Route::delete('/drugs/{id}', [DrugController::class, 'destroy'])->name('drugs.destroy');
+Route::get('/pharmacy', [DrugController::class, 'index'])->name('pharmacy'); // Main pharmacy page
+Route::get('/pharmacy/add-drug', [DrugController::class, 'create'])->name('add-drug'); // Add drug page
+Route::post('/pharmacy/store', [DrugController::class, 'store'])->name('store-drug'); // Store new drug
+Route::get('/pharmacy/edit-drug/{id}', [DrugController::class, 'edit'])->name('edit-drug'); // Edit drug page
+Route::put('/pharmacy/update/{id}', [DrugController::class, 'update'])->name('update-drug'); // Update drug
+Route::delete('/pharmacy/delete/{id}', [DrugController::class, 'destroy'])->name('delete-drug'); // Delete drug
