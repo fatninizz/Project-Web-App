@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\DrugController;
+use App\Http\Controllers\AppointmentController;
+
 
 Route::get('/', function () {
     return view('home');
@@ -35,3 +37,15 @@ Route::post('/pharmacy/store', [DrugController::class, 'store'])->name('store-dr
 Route::get('/pharmacy/edit-drug/{id}', [DrugController::class, 'edit'])->name('edit-drug'); // Edit drug page
 Route::put('/pharmacy/update/{id}', [DrugController::class, 'update'])->name('update-drug'); // Update drug
 Route::delete('/pharmacy/delete/{id}', [DrugController::class, 'destroy'])->name('delete-drug'); // Delete drug
+
+Route::get('/appointment', [AppointmentController::class, 'index'])->name('appointment.index');
+Route::get('/add-appointment', [AppointmentController::class, 'create'])->name('appointment.create');
+Route::post('/add-appointment', [AppointmentController::class, 'store'])->name('appointment.store');
+Route::get('/appointment/{id}/edit', [AppointmentController::class, 'edit'])->name('appointment.edit');
+Route::put('/appointment/{id}/update', [AppointmentController::class, 'update'])->name('appointment.update');
+Route::delete('/appointment/{id}', [AppointmentController::class, 'destroy'])->name('appointment.delete');
+
+
+
+
+
